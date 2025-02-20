@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import re_path
 from django.urls import include, path
 from . import views
+from paw_auth import views
 
 urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
