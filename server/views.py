@@ -16,7 +16,7 @@ def login(request):
     if not user.check_password(request.data['password']):
         return Response({"detail": "Not foumd."}, status=status.HTTP_404_NOT_FOUND)
     token, created = Token.objects.get_or_create(user=user)
-    serializer = UserSerializer(instace=user)
+    serializer = UserSerializer(instance=user)
     return Response({"token": token.key, "user": serializer.data})
 
 @api_view(['POST'])
@@ -37,6 +37,6 @@ from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes(IsAuthenticated)
+@permission_classes([IsAuthenticated])
 def test_token(request):
-    return Response("passed for{}".format(request.User.email))
+    return Response("passed for {}".format(request.user.email))
